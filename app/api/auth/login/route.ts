@@ -10,6 +10,7 @@ export async function POST(request: Request) {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials : 'include',
       body: JSON.stringify(body),
     })
 
@@ -33,20 +34,21 @@ export async function POST(request: Request) {
     // Set cookies
     newResponse.cookies.set('access_token', data.access, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 1800 // 30 minutes
+      secure: true,
+      sameSite: 'none',
+      maxAge: 300 // 5 minutes
     })
 
     newResponse.cookies.set('refresh_token', data.refresh, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 1209600 // 14 days
+      secure: true,
+      sameSite: 'none',
+      maxAge: 2592000 // 30 days
     })
 
     return newResponse
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

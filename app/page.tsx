@@ -1,5 +1,4 @@
 import { getDecodedUser } from "@/lib/auth";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 
 export default function Home() {

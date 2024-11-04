@@ -4,18 +4,17 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useAuth } from "@/context/auth"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function LoginPage() {
 
-    const {updateUser} = useAuth()
     const router = useRouter()
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
+    // @typescript-eslint/no-explicit-any
     const handleSubmit = async(e:any) => {
         e.preventDefault()
         console.log("Submitted")
@@ -44,7 +43,7 @@ export default function LoginPage() {
             // // Update auth context
             // updateUser(userData)
 
-            
+
                     // Instead of decoding client-side, refresh the page
         // This will trigger a server-side render which will
         // decode the token and set up the auth context
@@ -54,6 +53,7 @@ export default function LoginPage() {
             // // Redirect to dashboard
             // router.push('/dashboard')
         } catch (error) {
+            console.log(error)
             
         }
 
